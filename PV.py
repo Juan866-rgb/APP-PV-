@@ -19,30 +19,30 @@ from tkinter import ttk
     
 #-------------------------------------------------------------------------------
     
-ventana = tk.Tk()
+ventana = tk.Tk()                                                              # Se crea la ventana
 
 
-ventana.title("PV calculator")
-ventana.resizable(0,0)                                          # No deja redimensionar 
-ventana.config(width=600, height=500)                           # Dimensiones
-ventana.config(bg='white')                                      # color5
+ventana.title("PV calculator")                                                 # Título de la ventana
+ventana.resizable(0,0)                                                         # No deja redimensionar 
+ventana.config(width=600, height=500)                                          # Dimensiones
+ventana.config(bg='white')                                                     # color del fondo
 
 #-------------------------------- Pedir consumo diario -----------------------------------------------
 
-etiqueta_temp_celsius = ttk.Label(text="Consumo diario (Watts):")
-etiqueta_temp_celsius.place(x=10, y=10)
+etiqueta_consumo_diario = ttk.Label(text="Consumo diario (Watts):")            # Nombre de la etiqueta
+etiqueta_consumo_diario.place(x=10, y=10)                                      # Posición de la etiqueta
 
 
 #--------------------------------- Caja para el valor de consumo----------------------------------------------
 
-caja_temp_celsius = ttk.Entry()
-caja_temp_celsius.place(x=140, y=10, width=50)
+caja_consumo_diario = ttk.Entry()
+caja_consumo_diario.place(x=140, y=10, width=50)
 
 
 #-------------------------------- Pedir potencia del panel-----------------------------------------------
 
-etiqueta_temp_celsius = ttk.Label(text="Potencia del panel(W):")
-etiqueta_temp_celsius.place(x=200, y=10)
+etiqueta_potencia_panel = ttk.Label(text="Potencia del panel(W):")             # Nombre de la etiqueta
+etiqueta_potencia_panel.place(x=200, y=10)                                     # Posición de la etiqueta
 
 #--------------------------------- Caja para el valor de potencia panel----------------------------------------------
 
@@ -52,8 +52,8 @@ caja_potencia_panel.place(x=320, y=10, width=50)
 
 #-------------------------------- Pedir corriente del panel-----------------------------------------------
 
-etiqueta_corriente_panel = ttk.Label(text="Corriente del panel(A):")
-etiqueta_corriente_panel.place(x=200, y=40)
+etiqueta_corriente_panel = ttk.Label(text="Corriente del panel(A):")           # Nombre de la etiqueta
+etiqueta_corriente_panel.place(x=200, y=40)                                    # Posición de la etiqueta
 
 #--------------------------------- Caja para el valor de corriente panel----------------------------------------------
 
@@ -63,14 +63,42 @@ caja_corriente_panel.place(x=320, y=40, width=50)
 
 #--------------------------------- Pedir voltaje de baterias ----------------------------------------------
 
-etiqueta_temp_celsius = ttk.Label(text="Voltaje baterias(V):")
-etiqueta_temp_celsius.place(x=380, y=10)
+etiqueta_voltaje_baterias = ttk.Label(text="Voltaje baterias(V):")             # Nombre de la etiqueta
+etiqueta_voltaje_baterias.place(x=380, y=10)                                   # Posición de la etiqueta
 
 #--------------------------------- Caja para el valor de baterias ----------------------------------------------
 
 
 caja_voltaje_baterias = ttk.Combobox(values=["2", "6", "12", "24", "48"], state="readonly")
 caja_voltaje_baterias.place(x=480, y=10, width=50)
+
+
+#-------------------------------- Pedir voltaje del inversor -----------------------------------------------
+
+etiqueta_voltaje_inversor = ttk.Label(text="Voltaje inversor(V):")             # Nombre de la etiqueta
+etiqueta_voltaje_inversor.place(x=200, y=70)                                   # Posición de la etiqueta
+
+
+#--------------------------------- Caja para el voltaje del inversor ----------------------------------------------
+
+caja_voltaje_inversor = ttk.Combobox(values=["12", "24", "48", "96", "120"], state="readonly")
+caja_voltaje_inversor.place(x=300, y=70, width=50)
+
+
+
+#-------------------------------- Pedir factor de seguridad del inversor -----------------------------------------------
+
+etiqueta_factor_inversor = ttk.Label(text="Factor del inversor(%):")           # Nombre de la etiqueta
+etiqueta_factor_inversor.place(x=200, y=100)                                   # Posición de la etiqueta     
+
+
+#--------------------------------- Caja para el factor de seguridad del inversor ----------------------------------------------
+
+caja_factor_inversor = ttk.Combobox(values=["0", "20", "25", "30", "50"], state="readonly")
+caja_factor_inversor.place(x=320, y=100, width=50)
+
+
+
 
 
 
