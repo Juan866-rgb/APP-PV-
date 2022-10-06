@@ -27,7 +27,7 @@ def calcular_paneles() :
     numero_de_paneles = consumo_con_factor_de_error/(horas_solares*eficiencia_panel*potencia_panel)
     etiqueta_numero_de_paneles_aprox.config(text=f"Número de paneles necesarios aprox: {math.ceil(numero_de_paneles)}")
     
-    # Preciso
+    # Exacto
     eficiencia_bateria = 0.95
     eficiencia_controlador = 1
     eficiencia_inversor = 0.9
@@ -145,6 +145,6 @@ etiqueta_numero_de_paneles_aprox=ttk.Label(text='Número de paneles necesarios a
 etiqueta_numero_de_paneles_aprox.place(x=20, y=160)
 
 etiqueta_numero_de_paneles_exac=ttk.Label(text='Número de paneles necesarios exac: n/a')
-etiqueta_numero_de_paneles_exac.place(x=20, y=190)
+etiqueta_numero_de_paneles_exac.place(x=20, y=180)
 
 ventana.mainloop()
