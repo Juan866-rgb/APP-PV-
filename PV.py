@@ -138,13 +138,13 @@ caja_factor_inversor.place(x=320, y=100, width=50)
 #etiqueta_temp_fahrenheit = ttk.Label(text="Temperatura en ºF: n/a")
 #etiqueta_temp_fahrenheit.place(x=20, y=160)
 
-boton_calcular_paneles = ttk.Button(text="Calcular número de paneles", command=calcular_paneles)
+boton_calcular_paneles = ttk.Button(text="Calcular número de paneles", command = calcular_paneles)
 boton_calcular_paneles.place(x=20, y=130)
 
-etiqueta_numero_de_paneles_aprox=ttk.Label(text='Número de paneles necesarios aprox: n/a')
+etiqueta_numero_de_paneles_aprox = ttk.Label(text='Número de paneles necesarios aprox: n/a')
 etiqueta_numero_de_paneles_aprox.place(x=20, y=160)
 
-etiqueta_numero_de_paneles_exac=ttk.Label(text='Número de paneles necesarios exac: n/a')
+etiqueta_numero_de_paneles_exac = ttk.Label(text='Número de paneles necesarios exac: n/a')
 etiqueta_numero_de_paneles_exac.place(x=20, y=180)
 
 ventana.mainloop()
