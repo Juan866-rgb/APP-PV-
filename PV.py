@@ -25,7 +25,7 @@ def calcular_paneles() :
     eficiencia_panel = 0.9
     horas_solares = 4
     numero_de_paneles = consumo_con_factor_de_error/(horas_solares*eficiencia_panel*potencia_panel)
-    etiqueta_numero_de_paneles.config(text=f"El número de paneles: {math.ceil(numero_de_paneles)}")
+    etiqueta_numero_de_paneles_aprox.config(text=f"Número de paneles necesarios aprox: {math.ceil(numero_de_paneles)}")
     
     
 #-------------------------------------------------------------------------------
@@ -135,7 +135,10 @@ caja_factor_inversor.place(x=320, y=100, width=50)
 boton_calcular_paneles = ttk.Button(text="Calcular paneles", command=calcular_paneles)
 boton_calcular_paneles.place(x=20, y=130)
 
-etiqueta_numero_de_paneles=ttk.Label(text='Número de paneles necesarios: n/a')
-etiqueta_numero_de_paneles.place(x=20, y=160)
+etiqueta_numero_de_paneles_aprox=ttk.Label(text='Número de paneles necesarios aprox: n/a')
+etiqueta_numero_de_paneles_aprox.place(x=20, y=160)
+
+etiqueta_numero_de_paneles_exac=ttk.Label(text='Número de paneles necesarios exac: n/a')
+etiqueta_numero_de_paneles_exac.place(x=20, y=190)
 
 ventana.mainloop()
