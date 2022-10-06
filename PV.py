@@ -15,6 +15,16 @@ from tkinter import ttk
 #    temp_fahrenheit = temp_celsius*1.8 + 32
 #    etiqueta_temp_kelvin.config(text=f"Temperatura en K: {temp_kelvin}")
 #    etiqueta_temp_fahrenheit.config(text=f"Temperatura en ºF: {temp_fahrenheit}")
+
+# Numero de paneles
+def calcular() :
+    consumo = float(caja_consumo_diario.get())
+    consumo_con_factor_de_error = consumo*(1.2)
+    potencia_panel = float(caja_potencia_panel.get())
+    eficiencia_panel = 0.9
+    horas_solares = 4
+    numero_de_paneles = consumo_con_factor_de_error/(horas_solares*eficiencia_panel*potencia_panel)
+    etiqueta_numero_de_paneles.config(text=f"El número de paneles: {numero_de_paneles}")
     
     
 #-------------------------------------------------------------------------------
@@ -120,5 +130,7 @@ caja_factor_inversor.place(x=320, y=100, width=50)
 
 #etiqueta_temp_fahrenheit = ttk.Label(text="Temperatura en ºF: n/a")
 #etiqueta_temp_fahrenheit.place(x=20, y=160)
+
+etiqueta_numero_de_paneles=ttk.Label(text='Número de paneles necesarios: n/a')
 
 ventana.mainloop()
