@@ -18,6 +18,7 @@ from tkinter import ttk
 
 # Numero de paneles
 def calcular_paneles() :
+    # Aproximado
     consumo = float(caja_consumo_diario.get())
     consumo_con_factor_de_error = consumo*(1.2)
     potencia_panel = float(caja_potencia_panel.get())
