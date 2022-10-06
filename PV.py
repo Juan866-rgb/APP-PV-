@@ -17,14 +17,14 @@ from tkinter import ttk
 #    etiqueta_temp_fahrenheit.config(text=f"Temperatura en ºF: {temp_fahrenheit}")
 
 # Numero de paneles
-def calcular() :
+def calcular_paneles() :
     consumo = float(caja_consumo_diario.get())
     consumo_con_factor_de_error = consumo*(1.2)
     potencia_panel = float(caja_potencia_panel.get())
     eficiencia_panel = 0.9
     horas_solares = 4
     numero_de_paneles = consumo_con_factor_de_error/(horas_solares*eficiencia_panel*potencia_panel)
-    etiqueta_numero_de_paneles.config(text=f"El número de paneles: {numero_de_paneles}")
+    etiqueta_numero_de_paneles.config(text=f"El número de paneles: {math.ceil(numero_de_paneles)}")
     
     
 #-------------------------------------------------------------------------------
@@ -131,6 +131,10 @@ caja_factor_inversor.place(x=320, y=100, width=50)
 #etiqueta_temp_fahrenheit = ttk.Label(text="Temperatura en ºF: n/a")
 #etiqueta_temp_fahrenheit.place(x=20, y=160)
 
+boton_calcular_paneles = ttk.Button(text="Calcular paneles", command=calcular_paneles)
+boton_calcular_paneles.place(x=20, y=60)
+
 etiqueta_numero_de_paneles=ttk.Label(text='Número de paneles necesarios: n/a')
+etiqueta_numero_de_paneles.place(x=20, y=160)
 
 ventana.mainloop()
