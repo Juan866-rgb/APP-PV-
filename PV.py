@@ -17,7 +17,7 @@ from tkinter import ttk
 #    etiqueta_temp_fahrenheit.config(text=f"Temperatura en ºF: {temp_fahrenheit}")
 
 # Numero de paneles
-def calcular_paneles_aprox() :
+def calcular_paneles() :
     # Aproximado
     consumo = float(caja_consumo_diario.get())
     consumo_con_factor_de_error = consumo*(1.2)
@@ -27,6 +27,12 @@ def calcular_paneles_aprox() :
     numero_de_paneles = consumo_con_factor_de_error/(horas_solares*eficiencia_panel*potencia_panel)
     etiqueta_numero_de_paneles_aprox.config(text=f"Número de paneles necesarios aprox: {math.ceil(numero_de_paneles)}")
     
+    # Preciso
+    eficiencia_bateria = 0.95
+    eficiencia_controlador = 1
+    eficiencia_inversor = 0.9
+    numero_de_paneles_2 = (consumo_con_factor_de_error/eficiencia_inversor*eficiencia_controlador*eficiencia_bateria)/(horas_solares*eficiencia_panel*potencia_panel)
+    etiqueta_numero_de_paneles_2.config(text=f"Número de paneles necesarios: {math.ceil(numero_de_paneles_2)}")
     
 #-------------------------------------------------------------------------------
     
@@ -132,17 +138,13 @@ caja_factor_inversor.place(x=320, y=100, width=50)
 #etiqueta_temp_fahrenheit = ttk.Label(text="Temperatura en ºF: n/a")
 #etiqueta_temp_fahrenheit.place(x=20, y=160)
 
-boton_calcular_paneles = ttk.Button(text="Calcular paneles aprox", command=calcular_paneles_aprox)
+boton_calcular_paneles = ttk.Button(text="Calcular paneles", command=calcular_paneles)
 boton_calcular_paneles.place(x=20, y=130)
 
 etiqueta_numero_de_paneles_aprox=ttk.Label(text='Número de paneles necesarios aprox: n/a')
 etiqueta_numero_de_paneles_aprox.place(x=20, y=160)
 
-
-boton_calcular_paneles = ttk.Button(text="Calcular paneles exac", command=calcular_paneles)
-boton_calcular_paneles.place(x=20, y=190)
-
 etiqueta_numero_de_paneles_exac=ttk.Label(text='Número de paneles necesarios exac: n/a')
-etiqueta_numero_de_paneles_exac.place(x=20, y=220)
+etiqueta_numero_de_paneles_exac.place(x=20, y=190)
 
 ventana.mainloop()
