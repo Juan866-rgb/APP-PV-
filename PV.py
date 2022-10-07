@@ -25,6 +25,7 @@ def calcular_paneles() :
         potencia_panel = float(caja_potencia_panel.get())
         capacidad_individual_baterias = float(caja_capacidad_baterias.get())
         dias_de_autonomia = float(caja_días_de_operacion.get())
+        corriente_panel = float(caja_corriente_panel.get())
     except:
         messagebox.showinfo('Warning','Entrada Inválida. Intente de Nuevo')
 
@@ -55,7 +56,9 @@ def calcular_paneles() :
     etiqueta_numero_baterias.config(text=f"Número baterías: {math.ceil(numero_baterias)} Baterías en arreglos de {arreglo_de_baterias}")
 
     # Controldor de carga
-    corriente_entrada = 1.25
+    corriente_entrada = 1.25*numero_de_paneles_2*corriente_panel
+    corriente_salida = 1.25*(392/0.9)/voltaje_sistema
+
 #-------------------------------------------------------------------------------
     
 ventana = tk.Tk()                                                              # Se crea la ventana
