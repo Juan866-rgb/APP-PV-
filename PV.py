@@ -47,7 +47,11 @@ def calcular_paneles() :
     etiqueta_c_a.config(text=f"Cálculo acumuladores: {round(c_a)} Ah")
     
     # Número de Baterías
-    capacidad_individual_baterias = 200 #Ah
+    try:
+        capacidad_individual_baterias = float(caja_capacidad_baterias.get()) #Ah
+    except:
+        messagebox.showinfo('Warning','Entrada Inválida. Intente de Nuevo')
+
     voltaje_baterias = float(caja_voltaje_baterias.get())
     arreglo_de_baterias = math.ceil(c_a/capacidad_individual_baterias)
     numero_baterias = arreglo_de_baterias*(voltaje_sistema/voltaje_baterias)
@@ -119,22 +123,33 @@ caja_corriente_panel.place(x=320, y=40, width=50)
 etiqueta_voltaje_baterias = ttk.Label(text="Voltaje baterias(V):")             # Nombre de la etiqueta
 etiqueta_voltaje_baterias.place(x=380, y=10)                                   # Posición de la etiqueta
 
-#--------------------------------- Caja para el valor de baterias ----------------------------------------------
+#--------------------------------- Caja para voltaje de baterias ----------------------------------------------
 
 
 caja_voltaje_baterias = ttk.Combobox(values=["2", "6", "12", "24", "48"], state="readonly")
 caja_voltaje_baterias.place(x=480, y=10, width=50)
 
+#--------------------------------- Pedir corriente de baterias ----------------------------------------------
+
+etiqueta_capacidad_baterias = ttk.Label(text="Capacidad baterias(Ah):")             # Nombre de la etiqueta
+etiqueta_capacidad_baterias.place(x=380, y=40)                                   # Posición de la etiqueta
+
+#--------------------------------- Caja para corriente de baterias ----------------------------------------------
+
+caja_capacidad_baterias = ttk.Entry()
+caja_capacidad_baterias.place(x=510, y=40, width=50)
+
+
 #--------------------------------- Pedir voltaje del sistema ----------------------------------------------
 
 etiqueta_voltaje_sistema = ttk.Label(text="Voltaje sistema(V):")             # Nombre de la etiqueta
-etiqueta_voltaje_sistema.place(x=380, y=40)                                   # Posición de la etiqueta
+etiqueta_voltaje_sistema.place(x=380, y=70)                                   # Posición de la etiqueta
 
 #--------------------------------- Caja para voltaje del sistema ----------------------------------------------
 
 
 caja_voltaje_sistema = ttk.Combobox(values=["2", "6", "12", "24", "48"], state="readonly")
-caja_voltaje_sistema.place(x=480, y=40, width=50)
+caja_voltaje_sistema.place(x=480, y=70, width=50)
 
 
 #-------------------------------- Pedir voltaje del inversor -----------------------------------------------
@@ -168,19 +183,7 @@ caja_factor_inversor.place(x=320, y=100, width=50)
 #-----------------------------------------------------------------------------------------------------
 
 #--------------------------------------- llamar las funciones-----------------------------------
-
-
-#boton_convertir = ttk.Button(text="Convertir", command=convertir_temp)
-#boton_convertir.place(x=20, y=60)
-
-                                                 
-#etiqueta_temp_kelvin = ttk.Label(text="Temperatura en K: n/a")
-#etiqueta_temp_kelvin.place(x=20, y=120)
-
-
-#etiqueta_temp_fahrenheit = ttk.Label(text="Temperatura en ºF: n/a")
-#etiqueta_temp_fahrenheit.place(x=20, y=160)
-
+#                                                 
 boton_calcular_paneles = ttk.Button(text="Calcular número de paneles", command = calcular_paneles)
 boton_calcular_paneles.place(x=20, y=130)
 
