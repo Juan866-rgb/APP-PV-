@@ -22,10 +22,13 @@ def calcular_paneles() :
 
     try:
         consumo = float(caja_consumo_diario.get())
+        consumo_individual = float(caja_consumo_individual.get())
         potencia_panel = float(caja_potencia_panel.get())
+        eficiencia_inversor = float(caja_eficiencia_del_inversor.get())/100
         capacidad_individual_baterias = float(caja_capacidad_baterias.get())
         dias_de_autonomia = float(caja_días_de_operacion.get())
         corriente_panel = float(caja_corriente_panel.get())
+        
     except:
         messagebox.showinfo('Warning','Entrada Inválida. Intente de Nuevo')
 
@@ -39,7 +42,6 @@ def calcular_paneles() :
     # Exacto
     eficiencia_bateria = 0.95
     eficiencia_controlador = 1
-    eficiencia_inversor = 0.9
     numero_de_paneles_2 = (consumo_con_factor_de_error/eficiencia_inversor*eficiencia_controlador*eficiencia_bateria)/(horas_solares*eficiencia_panel*potencia_panel)
     etiqueta_numero_de_paneles_exac.config(text=f"Número de paneles necesarios exactos: {math.ceil(numero_de_paneles_2)} módulos")
 
@@ -57,7 +59,9 @@ def calcular_paneles() :
 
     # Controldor de carga
     corriente_entrada = 1.25*numero_de_paneles_2*corriente_panel
-    corriente_salida = 1.25*(392/0.9)/voltaje_sistema
+    etiqueta_corriente_de_entrada.config(text=f"Corriente de entrada del C.C.: {round(corriente_entrada)} A")
+    corriente_salida = 1.25*(consumo_individual/eficiencia_inversor)/voltaje_sistema
+    etiqueta_corriente_de_salida.config(text=f"Corriente de salida del C.C.: {round(corriente_salida)} A")
 
 #-------------------------------------------------------------------------------
     
@@ -69,11 +73,28 @@ ventana.config(bg='white')                                                     #
 
 #--------------------------------- Estética ----------------------------------------------
 
-ventana.iconbitmap("C:/Users/JESID PEREZ/Documents/GitHub/APP-PV-/Aestethic/Icono1.ico")
+""" ventana.iconbitmap("C:/Users/JESID PEREZ/Documents/GitHub/APP-PV-/Aestethic/Icono1.ico")
 
 icono_grande = tk.PhotoImage(file="C:/Users/JESID PEREZ/Documents/GitHub/APP-PV-/Aestethic/Barra.png")
 
 imagen = PhotoImage(file = "C:/Users/JESID PEREZ/Documents/GitHub/APP-PV-/Aestethic/ejemplo1.png")
+
+# Con Label y la opción image, puedes mostrar una imagen en el widget:
+background = Label(image = imagen, text = "Imagen")
+
+# Con place puedes organizar el widget de la imagen posicionandolo
+# donde lo necesites (relwidth y relheight son alto y ancho en píxeles):
+background.place(x = 0, y = 0, relwidth = 1, relheight = 1)
+ """
+
+ventana.iconbitmap("C:/Users/elect/Dropbox/PC/Desktop/Vainas/UPB\
+/Semestre 6 - 20222/FotoVoltaico/App/APP-PV-/Aestethic/Icono1.ico")
+
+icono_grande = tk.PhotoImage(file="C:/Users/elect/Dropbox/PC/Desktop/Vainas/UPB\
+/Semestre 6 - 20222/FotoVoltaico/App/APP-PV-/Aestethic/Barra.png")
+
+imagen = PhotoImage(file = "C:/Users/elect/Dropbox/PC/Desktop/Vainas/UPB\
+/Semestre 6 - 20222/FotoVoltaico/App/APP-PV-/Aestethic/ejemplo1.png")
 
 # Con Label y la opción image, puedes mostrar una imagen en el widget:
 background = Label(image = imagen, text = "Imagen")
@@ -93,6 +114,21 @@ etiqueta_consumo_diario.place(x=10, y=10)                                      #
 
 caja_consumo_diario = ttk.Entry()
 caja_consumo_diario.place(x=145, y=10, width=50)
+
+
+
+
+#-------------------------------- Pedir consumo individual -----------------------------------------------
+
+etiqueta_consumo_individual = ttk.Label(text="Consumo Individual (Watts):")            # Nombre de la etiqueta
+etiqueta_consumo_individual.place(x=10, y=40)                                      # Posición de la etiqueta
+
+
+#--------------------------------- Caja para consumo individual----------------------------------------------
+
+caja_consumo_individual = ttk.Entry()
+caja_consumo_individual.place(x=145, y=40, width=50)
+
 
 
 
@@ -194,6 +230,21 @@ caja_voltaje_inversor.place(x=300, y=70, width=50)
 
 
 
+#-------------------------------- Pedir eficiencia del inversor -----------------------------------------------
+
+etiqueta_eficiencia_del_inversor = ttk.Label(text="Eficiencia del Inversor(%): ")             # Nombre de la etiqueta
+etiqueta_eficiencia_del_inversor.place(x=200, y=120)                                   # Posición de la etiqueta
+
+
+#--------------------------------- Caja para eficiencia del inversor ----------------------------------------------
+
+caja_eficiencia_del_inversor = ttk.Combobox(values=["60", "80", "85", "90", "95"], state="readonly")
+caja_eficiencia_del_inversor.place(x=300, y=120, width=50)
+
+
+
+
+
 #-------------------------------- Pedir factor de seguridad del inversor -----------------------------------------------
 
 etiqueta_factor_inversor = ttk.Label(text="Factor del inversor(%):")           # Nombre de la etiqueta
@@ -227,5 +278,11 @@ etiqueta_c_a.place(x=20, y=200)
 
 etiqueta_numero_baterias = ttk.Label(text='Número baterías: n/a')
 etiqueta_numero_baterias.place(x=20, y=220)
+
+etiqueta_corriente_de_entrada = ttk.Label(text='Corriente de entrada del C.C: n/a')
+etiqueta_corriente_de_entrada.place(x=20, y=240)
+
+etiqueta_corriente_de_salida = ttk.Label(text='Corriente de salida del C.C: n/a')
+etiqueta_corriente_de_salida.place(x=20, y=260)
 
 ventana.mainloop()
