@@ -30,15 +30,29 @@ def calcular_paneles() :
     eficiencia_panel = 0.9
     horas_solares = 4
     numero_de_paneles = consumo_con_factor_de_error/(horas_solares*eficiencia_panel*potencia_panel)
-    etiqueta_numero_de_paneles_aprox.config(text=f"Número de paneles necesarios aproximados: {math.ceil(numero_de_paneles)}")
+    etiqueta_numero_de_paneles_aprox.config(text=f"Número de paneles necesarios aproximados: {math.ceil(numero_de_paneles)} módulos")
     
     # Exacto
     eficiencia_bateria = 0.95
     eficiencia_controlador = 1
     eficiencia_inversor = 0.9
     numero_de_paneles_2 = (consumo_con_factor_de_error/eficiencia_inversor*eficiencia_controlador*eficiencia_bateria)/(horas_solares*eficiencia_panel*potencia_panel)
-    etiqueta_numero_de_paneles_exac.config(text=f"Número de paneles necesarios exactos: {math.ceil(numero_de_paneles_2)}")
+    etiqueta_numero_de_paneles_exac.config(text=f"Número de paneles necesarios exactos: {math.ceil(numero_de_paneles_2)} módulos")
+
+    # Cálculo acumuladores
+    dias_de_autonomia = 1
+    voltaje_sistema = float(caja_voltaje_sistema.get())
+    profundidad_de_descarga = 0.6
+    c_a = consumo_con_factor_de_error*dias_de_autonomia/(voltaje_sistema*profundidad_de_descarga)
+    etiqueta_c_a.config(text=f"Cálculo acumuladores: {round(c_a)} Ah")
     
+    # Número de Baterías
+    capacidad_individual_baterias = 200 #Ah
+    voltaje_baterias = float(caja_voltaje_baterias.get())
+    arreglo_de_baterias = math.ceil(c_a/capacidad_individual_baterias)
+    numero_baterias = arreglo_de_baterias*(voltaje_sistema/voltaje_baterias)
+    etiqueta_numero_baterias.config(text=f"Número baterías: {math.ceil(numero_baterias)} Baterías en arreglos de {arreglo_de_baterias}")
+
 #-------------------------------------------------------------------------------
     
 ventana = tk.Tk()                                                              # Se crea la ventana
@@ -111,6 +125,17 @@ etiqueta_voltaje_baterias.place(x=380, y=10)                                   #
 caja_voltaje_baterias = ttk.Combobox(values=["2", "6", "12", "24", "48"], state="readonly")
 caja_voltaje_baterias.place(x=480, y=10, width=50)
 
+#--------------------------------- Pedir voltaje del sistema ----------------------------------------------
+
+etiqueta_voltaje_sistema = ttk.Label(text="Voltaje sistema(V):")             # Nombre de la etiqueta
+etiqueta_voltaje_sistema.place(x=380, y=40)                                   # Posición de la etiqueta
+
+#--------------------------------- Caja para voltaje del sistema ----------------------------------------------
+
+
+caja_voltaje_sistema = ttk.Combobox(values=["2", "6", "12", "24", "48"], state="readonly")
+caja_voltaje_sistema.place(x=480, y=40, width=50)
+
 
 #-------------------------------- Pedir voltaje del inversor -----------------------------------------------
 
@@ -164,5 +189,11 @@ etiqueta_numero_de_paneles_aprox.place(x=20, y=160)
 
 etiqueta_numero_de_paneles_exac = ttk.Label(text='Número de paneles necesarios exac: n/a')
 etiqueta_numero_de_paneles_exac.place(x=20, y=180)
+
+etiqueta_c_a = ttk.Label(text='Cálculo acumuladores: n/a')
+etiqueta_c_a.place(x=20, y=200)
+
+etiqueta_numero_baterias = ttk.Label(text='Número baterías: n/a')
+etiqueta_numero_baterias.place(x=20, y=220)
 
 ventana.mainloop()
