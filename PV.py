@@ -2,12 +2,13 @@
 """
 Created on Wed Oct  5 16:15:23 2022
 
-@author: JESID PEREZ
+@author: JESID PEREZ; @author: JESUS SANTANA; @author: JUAN MONSALVE
 """
-import math
-# math.ceil # pasa al valor siguiente 
-import tkinter as tk
+import math # math.ceil # pasa al valor siguiente 
+from tkinter import *
 from tkinter import ttk
+from tkinter import messagebox
+import tkinter as tk
 
 #def convertir_temp():
 #    temp_celsius = float(caja_temp_celsius.get())
@@ -18,21 +19,25 @@ from tkinter import ttk
 
 # Numero de paneles
 def calcular_paneles() :
-    # Aproximado
-    consumo = float(caja_consumo_diario.get())
+    # Aproximado    
+    try:
+        consumo = float(caja_consumo_diario.get())
+        potencia_panel = float(caja_potencia_panel.get())
+    except:
+        messagebox.showinfo('Mensaje','Entrada Inválida. Intente de Nuevo')    
+
     consumo_con_factor_de_error = consumo*(1.2)
-    potencia_panel = float(caja_potencia_panel.get())
     eficiencia_panel = 0.9
     horas_solares = 4
     numero_de_paneles = consumo_con_factor_de_error/(horas_solares*eficiencia_panel*potencia_panel)
-    etiqueta_numero_de_paneles_aprox.config(text=f"Número de paneles necesarios aprox: {math.ceil(numero_de_paneles)}")
+    etiqueta_numero_de_paneles_aprox.config(text=f"Número de paneles necesarios aproximados: {math.ceil(numero_de_paneles)}")
     
     # Exacto
     eficiencia_bateria = 0.95
     eficiencia_controlador = 1
     eficiencia_inversor = 0.9
     numero_de_paneles_2 = (consumo_con_factor_de_error/eficiencia_inversor*eficiencia_controlador*eficiencia_bateria)/(horas_solares*eficiencia_panel*potencia_panel)
-    etiqueta_numero_de_paneles_exac.config(text=f"Número de paneles necesarios exac: {math.ceil(numero_de_paneles_2)}")
+    etiqueta_numero_de_paneles_exac.config(text=f"Número de paneles necesarios exactos: {math.ceil(numero_de_paneles_2)}")
     
 #-------------------------------------------------------------------------------
     
