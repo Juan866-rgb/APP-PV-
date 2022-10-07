@@ -24,7 +24,7 @@ def calcular_paneles() :
         consumo = float(caja_consumo_diario.get())
         potencia_panel = float(caja_potencia_panel.get())
     except:
-        messagebox.showinfo('Mensaje','Entrada Inválida. Intente de Nuevo')    
+        messagebox.showinfo('Warning','Entrada Inválida. Intente de Nuevo')    
 
     consumo_con_factor_de_error = consumo*(1.2)
     eficiencia_panel = 0.9
