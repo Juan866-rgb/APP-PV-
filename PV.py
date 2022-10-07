@@ -19,13 +19,16 @@ import tkinter as tk
 
 # Numero de paneles
 def calcular_paneles() :
-    # Aproximado    
+
     try:
         consumo = float(caja_consumo_diario.get())
         potencia_panel = float(caja_potencia_panel.get())
+        capacidad_individual_baterias = float(caja_capacidad_baterias.get())
+        dias_de_autonomia = float(caja_días_de_operacion.get())
     except:
-        messagebox.showinfo('Warning','Entrada Inválida. Intente de Nuevo')    
+        messagebox.showinfo('Warning','Entrada Inválida. Intente de Nuevo')
 
+    # Aproximado    
     consumo_con_factor_de_error = consumo*(1.2)
     eficiencia_panel = 0.9
     horas_solares = 4
@@ -40,23 +43,19 @@ def calcular_paneles() :
     etiqueta_numero_de_paneles_exac.config(text=f"Número de paneles necesarios exactos: {math.ceil(numero_de_paneles_2)} módulos")
 
     # Cálculo acumuladores
-    dias_de_autonomia = 1
     voltaje_sistema = float(caja_voltaje_sistema.get())
-    profundidad_de_descarga = 0.6
+    profundidad_de_descarga = float(caja_profundidad_de_descarga.get())/100
     c_a = consumo_con_factor_de_error*dias_de_autonomia/(voltaje_sistema*profundidad_de_descarga)
     etiqueta_c_a.config(text=f"Cálculo acumuladores: {round(c_a)} Ah")
     
     # Número de Baterías
-    try:
-        capacidad_individual_baterias = float(caja_capacidad_baterias.get()) #Ah
-    except:
-        messagebox.showinfo('Warning','Entrada Inválida. Intente de Nuevo')
-
     voltaje_baterias = float(caja_voltaje_baterias.get())
     arreglo_de_baterias = math.ceil(c_a/capacidad_individual_baterias)
     numero_baterias = arreglo_de_baterias*(voltaje_sistema/voltaje_baterias)
     etiqueta_numero_baterias.config(text=f"Número baterías: {math.ceil(numero_baterias)} Baterías en arreglos de {arreglo_de_baterias}")
 
+    # Controldor de carga
+    corriente_entrada = 1.25
 #-------------------------------------------------------------------------------
     
 ventana = tk.Tk()                                                              # Se crea la ventana
@@ -65,7 +64,7 @@ ventana.resizable(0,0)                                                         #
 ventana.config(width=800, height=600)                                          # Dimensiones
 ventana.config(bg='white')                                                     # color del fondo
 
-#--------------------------------- Estetica ----------------------------------------------
+#--------------------------------- Estética ----------------------------------------------
 
 ventana.iconbitmap("C:/Users/elect/Dropbox/PC/Desktop/Vainas/UPB/\
 Semestre 6 - 20222/FotoVoltaico/App/APP-PV-/Aestethic/Icono1.ico")
@@ -86,19 +85,20 @@ background.place(x = 0, y = 0, relwidth = 1, relheight = 1)
 
 #-------------------------------- Pedir consumo diario -----------------------------------------------
 
-etiqueta_consumo_diario = ttk.Label(text="Consumo diario (Watts):")            # Nombre de la etiqueta
+etiqueta_consumo_diario = ttk.Label(text="Consumo Diario (Watts):")            # Nombre de la etiqueta
 etiqueta_consumo_diario.place(x=10, y=10)                                      # Posición de la etiqueta
 
 
 #--------------------------------- Caja para el valor de consumo----------------------------------------------
 
 caja_consumo_diario = ttk.Entry()
-caja_consumo_diario.place(x=140, y=10, width=50)
+caja_consumo_diario.place(x=145, y=10, width=50)
+
 
 
 #-------------------------------- Pedir potencia del panel-----------------------------------------------
 
-etiqueta_potencia_panel = ttk.Label(text="Potencia del panel(W):")             # Nombre de la etiqueta
+etiqueta_potencia_panel = ttk.Label(text="Potencia del Panel(W):")             # Nombre de la etiqueta
 etiqueta_potencia_panel.place(x=200, y=10)                                     # Posición de la etiqueta
 
 #--------------------------------- Caja para el valor de potencia panel----------------------------------------------
@@ -107,9 +107,10 @@ caja_potencia_panel = ttk.Entry()
 caja_potencia_panel.place(x=320, y=10, width=50)
 
 
+
 #-------------------------------- Pedir corriente del panel-----------------------------------------------
 
-etiqueta_corriente_panel = ttk.Label(text="Corriente del panel(A):")           # Nombre de la etiqueta
+etiqueta_corriente_panel = ttk.Label(text="Corriente del Panel(A):")           # Nombre de la etiqueta
 etiqueta_corriente_panel.place(x=200, y=40)                                    # Posición de la etiqueta
 
 #--------------------------------- Caja para el valor de corriente panel----------------------------------------------
@@ -118,20 +119,22 @@ caja_corriente_panel = ttk.Entry()
 caja_corriente_panel.place(x=320, y=40, width=50)
 
 
+
 #--------------------------------- Pedir voltaje de baterias ----------------------------------------------
 
-etiqueta_voltaje_baterias = ttk.Label(text="Voltaje baterias(V):")             # Nombre de la etiqueta
+etiqueta_voltaje_baterias = ttk.Label(text="Voltaje Baterías(V):")             # Nombre de la etiqueta
 etiqueta_voltaje_baterias.place(x=380, y=10)                                   # Posición de la etiqueta
 
 #--------------------------------- Caja para voltaje de baterias ----------------------------------------------
 
-
 caja_voltaje_baterias = ttk.Combobox(values=["2", "6", "12", "24", "48"], state="readonly")
 caja_voltaje_baterias.place(x=480, y=10, width=50)
 
+
+
 #--------------------------------- Pedir corriente de baterias ----------------------------------------------
 
-etiqueta_capacidad_baterias = ttk.Label(text="Capacidad baterias(Ah):")             # Nombre de la etiqueta
+etiqueta_capacidad_baterias = ttk.Label(text="Capacidad Baterías(Ah):")             # Nombre de la etiqueta
 etiqueta_capacidad_baterias.place(x=380, y=40)                                   # Posición de la etiqueta
 
 #--------------------------------- Caja para corriente de baterias ----------------------------------------------
@@ -140,16 +143,42 @@ caja_capacidad_baterias = ttk.Entry()
 caja_capacidad_baterias.place(x=510, y=40, width=50)
 
 
+
+
 #--------------------------------- Pedir voltaje del sistema ----------------------------------------------
 
-etiqueta_voltaje_sistema = ttk.Label(text="Voltaje sistema(V):")             # Nombre de la etiqueta
+etiqueta_voltaje_sistema = ttk.Label(text="Voltaje Sistema(V):")             # Nombre de la etiqueta
 etiqueta_voltaje_sistema.place(x=380, y=70)                                   # Posición de la etiqueta
 
 #--------------------------------- Caja para voltaje del sistema ----------------------------------------------
 
-
 caja_voltaje_sistema = ttk.Combobox(values=["2", "6", "12", "24", "48"], state="readonly")
 caja_voltaje_sistema.place(x=480, y=70, width=50)
+
+
+
+#--------------------------------- Pedir profundidad de descarga ----------------------------------------------
+
+etiqueta_profundidad_de_descarga = ttk.Label(text="Profundidad de descarga de las baterias(%):")             # Nombre de la etiqueta
+etiqueta_profundidad_de_descarga.place(x=380, y=100)                                   # Posición de la etiqueta
+
+#--------------------------------- Caja para profundidad de descarga ----------------------------------------------
+
+caja_profundidad_de_descarga = ttk.Combobox(values=["60", "80", "85", "90", "95"], state="readonly")
+caja_profundidad_de_descarga.place(x=615, y=100, width=50)
+
+
+
+#--------------------------------- Días de Operación ----------------------------------------------
+
+etiqueta_días_de_operacion = ttk.Label(text="Días de Operación:")             # Nombre de la etiqueta
+etiqueta_días_de_operacion.place(x=380, y=130)                                   # Posición de la etiqueta
+
+#--------------------------------- Caja para Días de Operación ----------------------------------------------
+
+caja_días_de_operacion = ttk.Entry()
+caja_días_de_operacion.place(x=485, y=130, width=50)
+
 
 
 #-------------------------------- Pedir voltaje del inversor -----------------------------------------------
