@@ -42,12 +42,29 @@ def calcular_paneles() :
 #-------------------------------------------------------------------------------
     
 ventana = tk.Tk()                                                              # Se crea la ventana
-
-
 ventana.title("PV calculator")                                                 # Título de la ventana
 ventana.resizable(0,0)                                                         # No deja redimensionar 
-ventana.config(width=600, height=500)                                          # Dimensiones
+ventana.config(width=800, height=600)                                          # Dimensiones
 ventana.config(bg='white')                                                     # color del fondo
+
+#--------------------------------- Estetica ----------------------------------------------
+
+ventana.iconbitmap("C:/Users/elect/Dropbox/PC/Desktop/Vainas/UPB/\
+Semestre 6 - 20222/FotoVoltaico/App/APP-PV-/Aestethic/Icono1.ico")
+
+icono_grande = tk.PhotoImage(file="C:/Users/elect/Dropbox/PC/Desktop/Vainas/UPB/\
+Semestre 6 - 20222/FotoVoltaico/App/APP-PV-/Aestethic/Barra.png")
+
+imagen = PhotoImage(file = "C:/Users/elect/Dropbox/PC/Desktop/Vainas/UPB/\
+Semestre 6 - 20222/FotoVoltaico/App/APP-PV-/Aestethic/ejemplo1.png")
+
+# Con Label y la opción image, puedes mostrar una imagen en el widget:
+background = Label(image = imagen, text = "Imagen")
+
+# Con place puedes organizar el widget de la imagen posicionandolo
+# donde lo necesites (relwidth y relheight son alto y ancho en píxeles):
+background.place(x = 0, y = 0, relwidth = 1, relheight = 1)
+
 
 #-------------------------------- Pedir consumo diario -----------------------------------------------
 
@@ -118,10 +135,6 @@ etiqueta_factor_inversor.place(x=200, y=100)                                   #
 
 caja_factor_inversor = ttk.Combobox(values=["0", "20", "25", "30", "50"], state="readonly")
 caja_factor_inversor.place(x=320, y=100, width=50)
-
-
-
-
 
 
 
