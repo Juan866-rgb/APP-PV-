@@ -135,7 +135,7 @@ caja_factor_inversor.place(x=320, y=100, width=50)
 #boton_convertir = ttk.Button(text="Convertir", command=convertir_temp)
 #boton_convertir.place(x=20, y=60)
 
-                                                
+                                                 
 #etiqueta_temp_kelvin = ttk.Label(text="Temperatura en K: n/a")
 #etiqueta_temp_kelvin.place(x=20, y=120)
 
